@@ -3,9 +3,9 @@ import semanticscholar as sch
 from pprint import pprint
 from nameparser import HumanName
 
-library_id = 6526634
-library_type = 'user'
-api_key = 'h1CPDrvbTRNBjzpJNAN7ZFkd'
+library_id = 2569621
+library_type = 'group'
+api_key = 'cAjS7ISgL7i6f0XesVCS4Hfq'
 
 zot = zotero.Zotero(library_id, library_type, api_key)
 
@@ -32,6 +32,5 @@ for author in paper['authors']:
 
 resp = zot.create_items([template])
 if(resp['failed']):	print(resp['failed'])
-pprint(resp['successful'])
 for success in resp['successful']:
-	zot.addto_collection('VRX6722C', resp['successful'][success])
+	zot.addto_collection('HXCTMQ9M', resp['successful'][success])
