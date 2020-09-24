@@ -14,12 +14,9 @@ doi =  '10.1109/SCCC.2014.21'
 paper = sch.paper(doi)
 paper.keys()
 
-pprint(paper)
-
 # pprint.pprint(zot.item_types())
 
 template = zot.item_template('journalArticle')
-pprint(template)
 template['title'] = paper['title']
 template['DOI'] = paper['doi']
 template['URL'] = paper['url']
@@ -33,6 +30,8 @@ for author in paper['authors']:
 	name = HumanName(author['name'])
 	template['creators'].append({'creatorType':'author','firstName':name.first,'lastName':name.last})
 
-# pprint(template)
-
 resp = zot.create_items([template])
+if(resp['failed']):	print(resp['failed'])
+pprint(resp['successful'])
+for success in resp['successful']:
+	zot.addto_collection('VRX6722C', resp['successful'][success])
