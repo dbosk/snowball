@@ -9,28 +9,37 @@ api_key = 'cAjS7ISgL7i6f0XesVCS4Hfq'
 
 zot = zotero.Zotero(library_id, library_type, api_key)
 
-doi =  '10.1109/SCCC.2014.21'
+chestnut_doi =  '10.1109/SCCC.2014.21'
+chestnut_paper = sch.paper(chestnut_doi)
+chestnut_paper.keys()
 
-paper = sch.paper(doi)
-paper.keys()
+references = []
 
-# pprint.pprint(zot.item_types())
+for reference in chestnut_paper['references']:
 
-template = zot.item_template('journalArticle')
-template['title'] = paper['title']
-template['DOI'] = paper['doi']
-template['URL'] = paper['url']
-template['libraryCatalog'] = 'Semantic Scholar'
-template['abstractNote'] = paper['abstract']
-template['publicationTitle'] = paper['venue']
-template['date'] = paper['year']
+	if not reference['doi']: continue
+	pprint(reference['doi'])
 
-template['creators'].clear()
-for author in paper['authors']:
-	name = HumanName(author['name'])
-	template['creators'].append({'creatorType':'author','firstName':name.first,'lastName':name.last})
+	paper = sch.paper(reference['doi'])
+	paper.keys()
 
-resp = zot.create_items([template])
+	template = zot.item_template('journalArticle')
+	template['title'] = paper['title']
+	template['DOI'] = paper['doi']
+	template['URL'] = paper['url']
+	template['libraryCatalog'] = 'Semantic Scholar'
+	template['abstractNote'] = paper['abstract']
+	template['publicationTitle'] = paper['venue']
+	template['date'] = paper['year']
+
+	template['creators'].clear()
+	for author in paper['authors']:
+		name = HumanName(author['name'])
+		template['creators'].append({'creatorType':'author','firstName':name.first,'lastName':name.last})
+
+	references.append(template)
+
+resp = zot.create_items(references)
 if(resp['failed']):	print(resp['failed'])
 for success in resp['successful']:
 	zot.addto_collection('HXCTMQ9M', resp['successful'][success])
