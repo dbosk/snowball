@@ -9,8 +9,8 @@ api_key = 'cAjS7ISgL7i6f0XesVCS4Hfq'
 
 zot = zotero.Zotero(library_id, library_type, api_key)
 
-chestnut_doi =  '10.1109/SCCC.2014.21'
-chestnut_paper = sch.paper(chestnut_doi)
+base_papers = zot.collection_items('D7CPU28U')
+chestnut_paper = sch.paper(base_papers[0]['data']['DOI'])
 chestnut_paper.keys()
 
 references = []
