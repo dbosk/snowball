@@ -1,4 +1,6 @@
+import sys
 from pyzotero import zotero
+sys.path.append("/mnt/c/git/semanticscholar")
 import semanticscholar as sch
 from pprint import pprint
 from nameparser import HumanName
@@ -14,15 +16,15 @@ base_papers = zot.collection_items('D7CPU28U')
 references = []
 
 for base_paper in base_papers:
-	base_paper_s2 = sch.paper(base_paper['data']['DOI'])
-	base_paper_s2.keys()
+	base_paper_s2 = sch.paper(base_paper['data']['DOI'], timeout=60)
+	pprint(base_paper_s2)
 
 	for reference in base_paper_s2['references']:
 
 		if not reference['doi']: continue
 		pprint(reference['doi'])
 
-		paper = sch.paper(reference['doi'])
+		paper = sch.paper(reference['doi'], timeout=60)
 		paper.keys()
 
 		template = zot.item_template('journalArticle')
