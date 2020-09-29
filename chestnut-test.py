@@ -1,7 +1,5 @@
-import sys
 import yaml
 from pyzotero import zotero
-sys.path.append("/mnt/c/git/semanticscholar")
 import semanticscholar as sch
 from pprint import pprint
 from nameparser import HumanName
