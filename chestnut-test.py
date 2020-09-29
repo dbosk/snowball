@@ -1,6 +1,6 @@
 import yaml
 from pyzotero import zotero
-import semanticscholar as sch
+from semanticscholar import SemanticScholar
 from pprint import pprint
 from nameparser import HumanName
 
@@ -9,6 +9,9 @@ config = yaml.safe_load(open('config.yaml'))
 
 # Configure Zotero client
 zot = zotero.Zotero(config['zot_library_id'], config['zot_library_type'], config['zot_api_key'])
+
+# Configure Semantic Scholar client
+sch = SemanticScholar()
 
 # Load 'base' collection, declare array for storing references
 base_papers = zot.collection_items(config['zot_base_collection'])
