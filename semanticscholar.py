@@ -11,13 +11,13 @@ class SemanticScholar:
     timeout = 0
     incl_unkn_refs = False
 
-    def __init__(self, url=None, api_key=None, timeout=2, include_unknown_references=False):
-        if not None==url: self.url = url
+    def __init__(self, api_url=None, api_key=None, timeout=2, include_unknown_references=False):
+        if not None==api_url: self.url = api_url
         if not None==api_key: self.auth_header = {'x-api-key': api_key}
         self.timeout = timeout
         self.incl_unkn_refs = include_unknown_references
 
-    def paper(self,id, timeout=None, include_unknown_references=None) -> dict:
+    def paper(self, id, timeout=None, include_unknown_references=None) -> dict:
 
         '''Paper lookup
 
@@ -38,7 +38,7 @@ class SemanticScholar:
         return data
 
 
-    def author(self,id, timeout=None) -> dict:
+    def author(self, id, timeout=None) -> dict:
 
         '''Author lookup
 
@@ -61,7 +61,7 @@ class SemanticScholar:
         retry=retry_if_exception_type(ConnectionRefusedError),
         stop=stop_after_attempt(10)
         )
-    def __get_data(self,method, id, timeout, include_unknown_references) -> dict:
+    def __get_data(self, method, id, timeout, include_unknown_references) -> dict:
 
         '''Get data from Semantic Scholar API
 
