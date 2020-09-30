@@ -1,8 +1,7 @@
-from pprint import pprint
 import yaml
-from pyzotero.zotero import Zotero
-from semanticscholar import SemanticScholar
 from pprint import pprint
+from semanticscholar import SemanticScholar
+from pyzotero.zotero import Zotero
 from nameparser import HumanName
 
 # Load external config params
