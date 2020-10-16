@@ -69,6 +69,19 @@ for base_paper in base_papers:
 		# Add the entry to the references array
 		references.append(template)
 
+		# Workaround for the 50-item limit
+		if len(references) == 50:
+			response = zot.create_items(references)
+			if response['failed']:
+				print('WARNING: The following references were not created in Zotero:')
+				pprint(response['failed'])
+			for created in response['successful']:
+				for attempt in range(3):
+					added = zot.addto_collection(config['zot_ref_collection'], response['successful'][created])
+					if added: break
+				if not added: orphaned_items[created] = response['success'][created]
+			references.clear()
+
 	# Create items in Zotero, and assign to the references collection
 	response = zot.create_items(references)
 	if response['failed']:
