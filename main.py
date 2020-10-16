@@ -97,6 +97,8 @@ for base_paper in base_papers:
 			if added: break
 		if not added: orphaned_items[created] = response['success'][created]
 
+	zot.addto_collection(config['zot_proc_collection'], base_paper)
+
 	if orphaned_items:
 		print('WARNING: The following references were not added to the collection:')
 		pprint(orphaned_items)

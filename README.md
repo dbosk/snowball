@@ -12,7 +12,8 @@ pip install pyzotero requests tenacity pyyaml nameparser
 ```
 
 ## Getting started
-For the automation to be smooth, you should have a library in Zotero containing only the references you want to perform snowballing on. They should all belong to a collection, referred to in this project as the *base collection*. You should make sure the library has another (preferrably empty) collection, which will be your *reference collection*. This is where the retrieved references will end up.
+For the automation to be smooth, you should have a library in Zotero containing only the references you want to perform snowballing on. They should all belong to a collection, referred to in this project as the *base collection*. You should make sure the library has another (preferably empty) collection, which will be your *reference collection*. This is where the retrieved references will end up.
+Additionally, you should have a third collection, where all items that are successfully processed will end up, the *processed collection*.
 The snowballing process is done in five steps, as follows.
 
 For each publication in the base collection in Zotero:
@@ -30,6 +31,7 @@ zot_library_type : <string>
 zot_library_id : <integer>
 zot_base_collection : <string>
 zot_ref_collection : <string>
+zot_proc_collection : <string>
 zot_api_key : <string>
 
 s2_api_url : <string>
