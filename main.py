@@ -14,7 +14,7 @@ zot = Zotero(config['zot_library_id'], config['zot_library_type'], config['zot_a
 s2 = SemanticScholar(config['s2_api_url'], config['s2_api_key'], timeout=60)
 
 # Load 'base' collection, declare arrays for storing results
-base_papers = zot.collection_items(config['zot_base_collection'])
+base_papers = zot.everything(zot.collection_items(config['zot_base_collection']))
 references = []
 failed_base_papers = []
 orphaned_items = {}
@@ -35,6 +35,8 @@ for base_paper in base_papers:
 	except:
 		failed_base_papers.append(base_paper)
 		continue
+	# If the paper returned is empty, skip it
+	if not base_paper_s2: continue
 
 	print('{}:'.format(base_paper['data']['title']))
 	references.clear()
