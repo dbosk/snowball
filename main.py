@@ -47,24 +47,27 @@ for base_paper in base_papers:
 		# If the DOI field is missing, skip this entry
 		if not reference['doi']: continue
 		paper = s2.paper(reference['doi'])
-		print(' {} -> {}'.format(len(references), paper['title']))
+		try:
+			print(' {} -> {}'.format(len(references), paper['title']))
 
-		# Use the Zotero template for Journal Articles for all publications
-		template = zot.item_template('journalArticle')
-		template['title'] = paper['title']
-		template['DOI'] = paper['doi']
-		template['URL'] = paper['url']
-		template['libraryCatalog'] = 'Semantic Scholar'
-		template['abstractNote'] = paper['abstract']
-		template['publicationTitle'] = paper['venue']
-		template['date'] = paper['year']
+			# Use the Zotero template for Journal Articles for all publications
+			template = zot.item_template('journalArticle')
+			template['title'] = paper['title']
+			template['DOI'] = paper['doi']
+			template['URL'] = paper['url']
+			template['libraryCatalog'] = 'Semantic Scholar'
+			template['abstractNote'] = paper['abstract']
+			template['publicationTitle'] = paper['venue']
+			template['date'] = paper['year']
 
-		# Try to parse the authors' names using the HumanName package
-		template['creators'].clear()
-		for author in paper['authors']:
-			name = HumanName(author['name'])
-			template['creators'].append({'creatorType':'author',
-				'firstName':name.first,'lastName':name.last})
+			# Try to parse the authors' names using the HumanName package
+			template['creators'].clear()
+			for author in paper['authors']:
+				name = HumanName(author['name'])
+				template['creators'].append({'creatorType':'author',
+					'firstName':name.first,'lastName':name.last})
+		# If reading any of the fields fails, skip the item
+		except: continue
 
 		# Add the entry to the references array
 		references.append(template)
